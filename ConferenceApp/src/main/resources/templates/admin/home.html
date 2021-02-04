@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		
+	<link rel="stylesheet" href="../css/admin.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
+	<style type="text/css">
+		.vl {
+  border-left: 1px solid grey;
+  height: 500px;
+	}
+	</style>
+	<title>Admin Page</title>
+</head>
+
+<body>
+	<nav class="admin-nav shadow navbar navbar-expand-lg navbar-dark">
+		<a class="navbar-brand" href="/default"> <img src="/images/su.png" width="140" height="60" alt="">
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="/default"> HOME <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="/conference"> CONFERENCES </a></li>
+				<li class="nav-item"><a class="nav-link" href="https://www.sorbonne-universite.fr" target="_blank"
+						rel="noopener noreferrer"> ABOUT </a></li>
+				<li class="nav-item"><a class="nav-link" href="/contact"> CONTACT </a></li>
+			</ul>
+			<div class="navbar-collapse collapse w-100 order-3 dual-collapse3">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link disabled active" href="#" th:utext=${adminName}></a>
+					</li>
+					<li class="nav-item">
+						<form class="form-inline my-2 my-lg-0" th:action="@{/logout}">
+							<button class="btn btn-outline-success my-2 my-sm-0" type="submit">SIGN OUT</button>
+						</form>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+	<!-- Demo header-->
+<section class="py-5 header">
+    <div class="container py-4">
+        <header class="text-center mb-4 pb-4 text-white">
+            <h2 class="display-4">Admin page</h2>
+        </header>
+
+
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Tabs nav -->
+                <div class="nav flex-column nav-pills nav-pills-custom" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link mb-3 p-3 shadow active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                        <i class="fa fa-user-circle-o mr-2"></i>
+                        <span class="font-weight-bold small text-uppercase">Edit/Delete conference</span></a>
+                        
+                    <a class="nav-link mb-3 p-3 shadow" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-contact" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                        <i class="fa fa-calendar-minus-o mr-2"></i>
+                        <span class="font-weight-bold small text-uppercase">Client request</span></a>
+
+                    <a class="nav-link mb-3 p-3 shadow" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                        <i class="fa fa-calendar-minus-o mr-2"></i>
+                        <span class="font-weight-bold small text-uppercase">Create new conference</span></a>
+
+                    <a class="nav-link mb-3 p-3 shadow" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">
+                        <i class="fa fa-star mr-2"></i>
+                        <span class="font-weight-bold small text-uppercase">Create admin account</span></a>
+
+                    <a class="nav-link mb-3 p-3 shadow" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                        <i class="fa fa-check mr-2"></i>
+                        <span class="font-weight-bold small text-uppercase">Pending registration</span></a>
+                        
+                    <a class="nav-link mb-3 p-3 shadow" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-conf1" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                        <i class="fa fa-check mr-2"></i>
+                        <span class="font-weight-bold small text-uppercase">Validated registration</span></a>
+                    <a class="nav-link mb-3 p-3 shadow" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-conf2" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                        <i class="fa fa-check mr-2"></i>
+                        <span class="font-weight-bold small text-uppercase">Refused registration</span></a>
+                    </div>
+            </div>
+
+
+            <div class="col-md-9">
+                <!-- Tabs content -->
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade shadow rounded bg-white show active p-5" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+
+						 <h3 class="font-italic mb-4">Edit or delete a conference</h3>
+                    
+	                    <table class="table table-striped">
+							<thead>
+								<tr>
+									<th scope="col">Creation date</th>
+									<th scope="col">Conference name</th>
+									<th scope="col">Date</th>
+									<th scope="col">Time</th>
+									<th scope="col">Edit</th>
+									<th scope="col">Remove</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="conference : ${conferences}">
+									<td th:utext="${conference.creationDate}"> </td>
+									<th scope="row"> <a th:href="@{/conference/__${conference.conferenceName}__}"
+											th:utext="${conference.conferenceName}"> </a></th>
+									<td th:utext="${conference.date}"></td>
+									<td th:utext="@{__${conference.start}__ - __${conference.end}__}"></td>
+									<td>
+										<form th:action="@{edit/__${conference.id}__}">
+											<button type="submit" class="btn btn-outline-warning">¤</button>
+										</form>
+									</td>
+									<td>
+										<form th:action="@{remove/__${conference.id}__}">
+											<button type="submit" class="btn btn-outline-danger">-</button>
+										</form>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+                    </div>
+                    
+                    
+                     <div class="tab-pane fade shadow rounded bg-white p-5" id="v-pills-contact" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                        <h3 class="font-italic mb-4">Client request</h3>
+                    	
+                    	<table class="table table-striped">
+							<thead>
+								<tr>
+									<th scope="col">Reason</th>
+									<th scope="col">First Name</th>
+									<th scope="col">Last Name</th>
+									<th scope="col">Message</th>
+									<th scope="col">Reply</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="contact : ${waitingContacts}">
+									<td th:utext="${contact.reason}"></td>
+									<td th:utext="${contact.firstName}"></td>
+									<td th:utext="${contact.lastName}"></td>
+									<td th:utext="${contact.message}"></td>
+									<td>
+										<form th:action="@{reply/__${contact.id}__}">
+											<button type="submit" class="btn btn-outline-success">></button>
+										</form>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+	                    
+                	</div>
+                    
+                    
+                    <div class="tab-pane fade shadow rounded bg-white p-5" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                        <h3 class="font-italic mb-4">Create a new conference</h3>
+			
+						<div class="tab-content">
+							<div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+								<form th:action="@{/admin/create}" th:object="${conference}" method="post" class="form-signin">
+									<!-- Email input -->
+									<div class="form-outline mb-4">
+										<br />
+										
+									<div class="row">
+			   							<div class="col">
+										
+										<input type="hidden" th:field="*{creationDate}" placeholder="Creation date"
+											class="form-control" />
+										<label for="nameText" class="control-label">Name:</label>
+										<input type="text" th:field="*{conferenceName}" placeholder="Conference name"
+											class="form-control" th:required="true" />
+										<br />
+										<label for="nameText" class="control-label">Date:</label>
+										<input class="form-control" type="date" th:field="*{date}" id="example-date-input"
+											th:required="true">
+										<br />
+										<label for="nameText" class="control-label">Start time:</label>
+										<input class="form-control" type="time" th:field="*{start}" id="example-time-input"
+											th:required="true">
+										<br>
+										<label for="nameText" class="control-label">End time:</label>
+										<input class="form-control" type="time" th:field="*{end}" id="example-time-input"
+											th:required="true">
+										<br>
+										<label for="nameText" class="control-label">Location:</label>
+										<input type="text" th:field="*{location}" placeholder="Conference location"
+											class="form-control" th:required="true" />
+										
+										</div>
+										
+										<div class="vl"></div>
+										
+										<div class="col">
+										<p>Choose your conference's features:</p>
+										<input type="checkbox" id="title" th:field="*{title}" checked> <label for="title">Title
+											(Prof, Dr, Mr, Mrs, Ms)</label>
+										<br>
+										<input type="checkbox" id="firstName" th:field="*{firstName}"> <label for="fisrtName">First
+											name</label>
+										<br>
+										<input type="checkbox" id="lastName" th:field="*{lastName}"> <label for="lastName">Last
+											name</label>
+										<br>
+										<input type="checkbox" id="institution" th:field="*{institution}"> <label
+											for="institution">Institution</label>
+										<br>
+										<input type="checkbox" id="address" th:field="*{address}"> <label
+											for="address">Address</label>
+										<br>
+										<input type="checkbox" id="zip" th:field="*{zip}"> <label for="zip">Zip</label>
+										<br>
+										<input type="checkbox" id="city" th:field="*{city}"> <label for="zip">City</label>
+										<br>
+										<input type="checkbox" id="country" th:field="*{country}"> <label for="zip">Country</label>
+										<br>
+										<input type="checkbox" id="email" th:field="*{email}"> <label for="zip">Email</label>
+										<br>
+										<input type="checkbox" id="phone" th:field="*{Phone}"> <label for="zip">Phone</label>
+										<br>
+										<!-- ---------------------------------------------------------------------------------- -->
+										<!-- ---------------------------------------------------------------------------------- -->
+										<!-- ---------------------------------------------------------------------------------- -->
+										<p></p>
+										<label for="nameText" class="control-label">Registration type(s):</label>
+										
+										
+									<div class="row">
+						                <div class="col-lg-12">
+						                    <div id="inputFormRow">
+						                        <div class="input-group mb-3">
+						                            <input type="text" name="type[]" class="form-control m-input" placeholder="Add a type of registration..." autocomplete="off">
+						                            <div class="input-group-append">                
+						                                <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
+						                            </div>
+						                        </div>
+						                    </div>
+						
+						                    <div id="newRow"></div>
+						                    <button id="addRow" type="button" class="btn btn-info">Add a new type</button>
+						                </div>
+						            </div>
+										
+									</div>
+								</div>
+										
+									</div>
+									<div class="text-center">
+										<!-- Submit button -->
+										<button type="submit" class="btn btn-primary btn-block mb-4">Create</button>
+									</div>
+									<div th:if="${successMessage}">
+										<div class="alert alert-success hide" role="alert">
+											Conference registered. See all <a href="/conference" class="alert-link">conferences</a>.
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+                    </div>
+                    
+                    <div class="tab-pane fade shadow rounded bg-white p-5" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                        <h3 class="font-italic mb-4">Create a admin account</h3>
+						<div class="tab-content">
+							<div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+								<form th:action="@{/admin/registration}" method="POST" class="form-signin" th:object="${user}">
+									<!-- Email input -->
+									<div class="form-outline mb-4">
+										<input type="text" th:field="*{name}" placeholder="First name" class="form-control"
+											th:required="true" />
+										<br />
+										<input type="text" th:field="*{lastName}" placeholder="Last name" class="form-control"
+											th:required="true" />
+										<br />
+										<input type="text" th:field="*{email}" placeholder="Email" class="form-control"
+											th:required="true" />
+										<br />
+										<input type="text" th:field="*{userName}" placeholder="Username" class="form-control"
+											th:required="true" />
+										<br />
+										<input type="password" th:field="*{password}" placeholder="Password" class="form-control"
+											th:required="true" />
+										<br />
+									</div>
+									<div class="text-center">
+										<!-- Submit button -->
+										<button type="submit" class="btn btn-primary btn-block mb-4">Sign up</button>
+									</div>
+									<!-- Register buttons -->
+			
+									<div th:if="${successMessage}">
+										<div class="alert alert-success hide" role="alert">
+											Registered successfully.
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+                    </div>
+                    
+                    <div class="tab-pane fade shadow rounded bg-white p-5" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                        <h3 class="font-italic mb-4">Pending registration</h3>
+                        <table class="table table-striped">
+							<thead>
+								<tr>
+									<th scope="col">Conference</th>
+									<th scope="col">First Name</th>
+									<th scope="col">Last Name</th>
+									<th scope="col">Registration Type</th>
+									<th scope="col">Proof</th>
+									<th scope="col">Validate</th>
+									<th scope="col">Refuse</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="registration : ${waitingRegistrations}">
+									<td th:utext="${registration.conferenceName}"></td>
+									<td th:utext="${registration.firstName}"></td>
+									<td th:utext="${registration.lastName}"></td>
+									<td th:utext="${registration.type}"></td>
+									<td><a th:href="@{file/__${registration.id}__}"
+											target="_blank" rel="noopener noreferrer">PDF</a>
+									</td>
+									<td>
+										<form th:action="@{validate/__${registration.id}__}">
+											<button type="submit" class="btn btn-outline-success">+</button>
+										</form>
+									</td>
+									<td>
+										<form th:action="@{refuse/__${registration.id}__}">
+											<button type="submit" class="btn btn-outline-danger">-</button>
+										</form>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+                    </div>
+                    
+                     <div class="tab-pane fade shadow rounded bg-white p-5" id="v-pills-conf1" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                        <h3 class="font-italic mb-4">Validated registration</h3>
+                    
+	                    <table class="table table-striped">
+							<thead>
+								<tr>
+									<th scope="col">Conference</th>
+									<th scope="col">First Name</th>
+									<th scope="col">Last Name</th>
+									<th scope="col">Registration Type</th>
+									<th scope="col">Proof</th>
+									<th scope="col">Refuse</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="registration : ${validatedRegistrations}">
+									<td th:utext="${registration.conferenceName}"></td>
+									<td th:utext="${registration.firstName}"></td>
+									<td th:utext="${registration.lastName}"></td>
+									<td th:utext="${registration.type}"></td>
+									<td><a th:href="@{file/__${registration.id}__}"
+											target="_blank" rel="noopener noreferrer">PDF</a>
+									</td>
+									<td>
+										<form th:action="@{refuse/__${registration.id}__}">
+											<button type="submit" class="btn btn-outline-danger">-</button>
+										</form>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+                	</div>
+                
+                	<div class="tab-pane fade shadow rounded bg-white p-5" id="v-pills-conf2" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                        <h3 class="font-italic mb-4">Refused registration</h3>
+                    
+	                    <table class="table table-striped">
+							<thead>
+								<tr>
+									<th scope="col">Conference</th>
+									<th scope="col">First Name</th>
+									<th scope="col">Last Name</th>
+									<th scope="col">Registration Type</th>
+									<th scope="col">Proof</th>
+									<th scope="col">Validate</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="registration : ${refusedRegistrations}">
+									<td th:utext="${registration.conferenceName}"></td>
+									<td th:utext="${registration.firstName}"></td>
+									<td th:utext="${registration.lastName}"></td>
+									<td th:utext="${registration.type}"></td>
+									<td><a th:href="@{file/__${registration.id}__}"
+											target="_blank" rel="noopener noreferrer">PDF</a>
+									</td>
+									<td>
+										<form th:action="@{validate/__${registration.id}__}">
+											<button type="submit" class="btn btn-outline-success">+</button>
+										</form>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+                	</div>
+                
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script type="text/javascript">
+        // add row
+        $("#addRow").click(function () {
+            var html = '';
+            html += '<div id="inputFormRow">';
+            html += '<div class="input-group mb-3">';
+            html += '<input type="text" name="type[]" class="form-control m-input" placeholder="Add a type of registration..." autocomplete="off">';
+            html += '<div class="input-group-append">';
+            html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
+            html += '</div>';
+            html += '</div>';
+
+            $('#newRow').append(html);
+        });
+
+        // remove row
+        $(document).on('click', '#removeRow', function () {
+            $(this).closest('#inputFormRow').remove();
+        });
+    </script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>

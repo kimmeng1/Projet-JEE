@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="/css/home.css">
+
+	<title>Conference Registration</title>
+</head>
+
+<body>
+	<nav class="shadow navbar navbar-expand-lg navbar-dark my-blue-nav">
+		<a class="navbar-brand" href="/default"> <img src="/images/su.png" width="140" height="60" alt="">
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="/default"> HOME <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="/conference"> CONFERENCES </a></li>
+				<li class="nav-item"><a class="nav-link" href="https://www.sorbonne-universite.fr" target="_blank"
+						rel="noopener noreferrer"> ABOUT </a></li>
+				<li class="nav-item"><a class="nav-link" href="/contact"> CONTACT </a></li>
+			</ul>
+			<div class="navbar-collapse collapse w-100 order-3 dual-collapse3">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link disabled active" href="#" th:utext=${userName}></a>
+					</li>
+					<li class="nav-item">
+						<form class="form-inline my-2 my-lg-0" th:action="@{/logout}">
+							<button class="btn btn-outline-success my-2 my-sm-0" type="submit">SIGN OUT</button>
+						</form>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<br>
+	<br>
+	<br>
+		<header class="text-center mb-4 pb-4 text-white">
+            	<h2 class="display-4" th:utext="${conferenceName}"></h2>
+       	</header>
+
+
+	<section class="container p-3 d-flex justify-content-center mb-3">
+		<div class="my-div shadow p-5 mb-5 rounded" style="width: 26rem">
+
+			<div class="tab-content">
+				<div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+					<form th:action="@{/conference/__${conferenceName}__}" method="POST" class="form-signin" enctype="multipart/form-data"
+						th:object="${registration}">
+						<!-- Email input -->
+						<div class="form-outline mb-4">
+							<div th:if="${conference.title == true}" class="form-group">
+								<select th:field="*{title}" class="custom-select mb-2 mr-sm-2 mb-sm-0">
+									<option th:selected="selected" th:value="${type}">Title</option>
+									<option th:value="Prof.">Prof.</option>
+									<option th:value="Dr.">Dr.</option>
+									<option th:value="Mr.">Mr.</option>
+									<option th:value="Mrs.">Mrs.</option>
+									<option th:value="Ms.">Ms.</option>
+								</select>
+								<br>
+							</div>
+
+							<input th:if="${conference.firstName == true}" type="text" th:field="*{firstName}"
+								placeholder="First name" class="form-control" th:required="true" />
+							<br th:if="${conference.firstName == true}" />
+							<input th:if="${conference.lastName == true}" type="text" th:field="*{lastName}"
+								placeholder="Last name" class="form-control" th:required="true" />
+							<br th:if="${conference.lastName == true}" />
+							<input th:if="${conference.institution == true}" type="text" th:field="*{institution}"
+								placeholder="Institution" class="form-control" th:required="true" />
+							<br th:if="${conference.institution == true}" />
+							<input th:if="${conference.address == true}" type="text" th:field="*{address}"
+								placeholder="Address" class="form-control" th:required="true" />
+							<br th:if="${conference.address== true}" />
+							<input th:if="${conference.zip == true}" type="text" th:field="*{zip}" placeholder="Zip"
+								class="form-control" th:required="true" />
+							<br th:if="${conference.zip == true}" />
+							<input th:if="${conference.city == true}" type="text" th:field="*{city}" placeholder="City"
+								class="form-control" th:required="true" />
+							<br th:if="${conference.city == true}" />
+							<input th:if="${conference.country == true}" type="text" th:field="*{country}"
+								placeholder="Country" class="form-control" th:required="true" />
+							<br th:if="${conference.country == true}" />
+							<input th:if="${conference.email == true}" type="text" th:field="*{email}"
+								placeholder="Email" class="form-control" th:required="true" />
+							<br th:if="${conference.email == true}" />
+							<input th:if="${conference.phone == true}" type="text" th:field="*{phone}"
+								placeholder="Phone" class="form-control" th:required="true" />
+							<br th:if="${conference.phone == true}" />
+							<br>
+							<div class="form-group">
+								<select th:field="*{type}" class="custom-select mb-2 mr-sm-2 mb-sm-0">
+									<option th:selected="selected" th:value="${type}" th:text="'Choose type...'">
+									</option>
+									<option th:each="type : ${conference.types}" th:value="${type}" th:text="${type}">
+									</option>
+								</select>
+							</div>
+							<div class="custom-file mb-3">
+								<input type="file" class="custom-file-input" id="customFile" name="file">
+								<label class="custom-file-label" for="customFile">Choose file</label>
+							</div>
+							<br>
+						</div>
+						<div class="text-center">
+							<div class="form-group form-check">
+								<input type="checkbox" class="form-check-input" id="exampleCheck1" checked>
+								<label class="form-check-label" for="exampleCheck1">I have read and agree to the <a
+										href="/terms">terms</a></label>
+							</div>
+							<!-- Submit button -->
+							<button type="submit" class="btn btn-primary btn-block mb-4">Register</button>
+						</div>
+						<!-- Register buttons -->
+						<div th:if="${successMessage}">
+							<div class="alert alert-success hide" role="alert">
+								Registered successfully, please <a href="/login" class="alert-link">login</a>.
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<script>
+		// Add the following code if you want the name of the file appear on select
+		$(".custom-file-input").on("change", function () {
+			var fileName = $(this).val().split("\\").pop();
+			$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+		});
+	</script>
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>

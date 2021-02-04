@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="/css/home.css">
+	<title>Contact Us</title>
+</head>
+
+<body>
+	<nav class="shadow navbar navbar-expand-lg navbar-dark">
+		<a class="navbar-brand" href="/default"> <img src="/images/su.png" width="140" height="60" alt="">
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="/default"> HOME <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="/conference"> CONFERENCES </a></li>
+				<li class="nav-item"><a class="nav-link" href="https://www.sorbonne-universite.fr" target="_blank"
+						rel="noopener noreferrer"> ABOUT </a></li>
+				<li class="nav-item active"><a class="nav-link" href="/contact"> CONTACT </a></li>
+			</ul>
+		</div>
+	</nav>
+	<br>
+	<br>
+	<br>
+		<header class="text-center mb-4 pb-4 text-white">
+            	<h2 class="display-4">Contact us</h2>
+       	</header>
+
+	<section class="container p-3 d-flex justify-content-center mb-3">
+
+		<div class="my-div shadow p-5 mb-5 rounded" style="width: 66rem">
+
+			 
+			<form th:action="@{/contact}" method="POST" class="form-signin" th:object="${contact}">
+				<div class="form-group">
+					<input type="text" th:field="*{firstName}" class="form-control" th:required="true" placeholder="First name" > <br>
+					<input type="text" th:field="*{lastName}" class="form-control" th:required="true" placeholder="Last name" > <br>
+					<input type="email" th:field="*{email}" class="form-control" th:required="true" placeholder="Email" > <br>
+					<select th:field="*{reason}" class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
+						<option selected value="null">Please choose a reason...</option>
+						<option value="Account problems">Account problems</option>
+						<option value="Conference prices">Conference prices</option>
+						<option value="Cancel a registration">Cancel a registration</option>
+						<option value="Request a refund">Request a refund</option>
+					</select> <br>
+					<br>
+				</div>
+				<div class="form-group">
+					<textarea th:field="*{message}" class="form-control" id="exampleFormControlTextarea1" rows="5"
+						placeholder="Type your message here..." th:required="true"></textarea> <br>
+				</div>
+				<div>
+					<button type="submit" class="btn btn-primary btn-block mb-4"> Send your message</button>
+				</div>
+				
+				<div th:if="${successMessage}">
+					<div class="alert alert-success hide" role="alert">
+						Registered successfully. An admin will reply you soon.
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>

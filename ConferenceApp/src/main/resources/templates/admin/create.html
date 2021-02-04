@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="/css/admin.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
+	<style>
+.vl {
+  border-left: 1px solid grey;
+  height: 500px;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #7C0000, #FFEFEF);
+	}
+	
+	.my-div {
+	background: #fff;
+	}
+</style>
+	<title>Conferences edit</title>
+</head>
+<body>
+	<nav class="shadow navbar navbar-expand-lg navbar navbar-dark">
+		<a class="navbar-brand" href="/default"> <img src="/images/su.png" width="140" height="60" alt="">
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="/default"> HOME <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="/conference"> CONFERENCES </a></li>
+				<li class="nav-item"><a class="nav-link" href="https://www.sorbonne-universite.fr" target="_blank"
+						rel="noopener noreferrer"> ABOUT </a></li>
+				<li class="nav-item"><a class="nav-link" href="/contact"> CONTACT </a></li>
+			</ul>
+			<div class="navbar-collapse collapse w-100 order-3 dual-collapse3">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link disabled active" href="#" th:utext=${userName}></a>
+					</li>
+					<li class="nav-item">
+						<form class="form-inline my-2 my-lg-0" th:action="@{/logout}">
+							<button class="btn btn-outline-success my-2 my-sm-0" type="submit">SIGN OUT</button>
+						</form>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<br>
+	<br>
+	<br>
+		<header class="text-center mb-4 pb-4 text-white">
+            	<h2 class="display-4">Edit a conference</h2>
+       	</header>
+	<!-- --------------------------------------------------------------------------------------------------------------- -->
+	<!-- --------------------------------------------------------------------------------------------------------------- -->
+	<!-- --------------------------------------------------------------------------------------------------------------- -->
+	<!-- --------------------------------------------------------------------------------------------------------------- -->
+	<!-- --------------------------------------------------------------------------------------------------------------- -->
+	<section class="container p-3 d-flex justify-content-center mb-3">
+		<div class="my-div shadow p-5 mb-5 rounded" style="width: 66rem">
+			<!-- Pills navs -->
+
+			<div class="tab-content">
+				<div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+					<form th:action="@{/admin/edit}" th:object="${conference}" method="post" class="form-signin">
+						<!-- Email input -->
+						<div class="form-outline mb-4">
+							<br />
+							
+						<div class="row">
+   							<div class="col">
+							<input type="hidden" th:value="${conference.id}" th:field="*{id}" >
+							<input type="hidden" th:field="*{creationDate}" placeholder="Creation date" 
+								class="form-control" />
+							<label for="nameText" class="control-label">Name:</label>
+							<input type="text" th:field="*{conferenceName}" placeholder="Conference name" th:value="${conference.conferenceName}"
+								class="form-control" th:required="true" />
+							<br />
+							<label for="nameText" class="control-label">Date:</label>
+							<input class="form-control" type="date" th:field="*{date}" id="example-date-input"
+								th:required="true">
+							<br />
+							<label for="nameText" class="control-label">Start time:</label>
+							<input class="form-control" type="time" th:field="*{start}" id="example-time-input"
+								th:required="true">
+							<br>
+							<label for="nameText" class="control-label">End time:</label>
+							<input class="form-control" type="time" th:field="*{end}" id="example-time-input"
+								th:required="true">
+							<br>
+							<label for="nameText" class="control-label">Location:</label>
+							<input type="text" th:field="*{location}" placeholder="Conference location"
+								class="form-control" th:required="true" />
+							
+							</div>
+							
+							<div class="vl"></div>
+							
+							<div class="col">
+							<p>Choose your conference's features:</p>
+							<input type="checkbox" id="title" th:field="*{title}" checked> <label for="title">Title
+								(Prof, Dr, Mr, Mrs, Ms)</label>
+							<br>
+							<input type="checkbox" id="firstName" th:field="*{firstName}"> <label for="fisrtName">First
+								name</label>
+							<br>
+							<input type="checkbox" id="lastName" th:field="*{lastName}"> <label for="lastName">Last
+								name</label>
+							<br>
+							<input type="checkbox" id="institution" th:field="*{institution}"> <label
+								for="institution">Institution</label>
+							<br>
+							<input type="checkbox" id="address" th:field="*{address}"> <label
+								for="address">Address</label>
+							<br>
+							<input type="checkbox" id="zip" th:field="*{zip}"> <label for="zip">Zip</label>
+							<br>
+							<input type="checkbox" id="city" th:field="*{city}"> <label for="zip">City</label>
+							<br>
+							<input type="checkbox" id="country" th:field="*{country}"> <label for="zip">Country</label>
+							<br>
+							<input type="checkbox" id="email" th:field="*{email}"> <label for="zip">Email</label>
+							<br>
+							<input type="checkbox" id="phone" th:field="*{Phone}"> <label for="zip">Phone</label>
+							<br>
+							<!-- ---------------------------------------------------------------------------------- -->
+							<!-- ---------------------------------------------------------------------------------- -->
+							<!-- ---------------------------------------------------------------------------------- -->
+							<p></p>
+							<label for="nameText" class="control-label">Registration type(s):</label>
+							
+							
+						<div class="row">
+			                <div class="col-lg-12">
+			                
+			                <div th:each="type : ${conference.types}">
+			                	<div id="inputFormRow">
+			                        <div class="input-group mb-3">
+			                
+		                    			<input th:value="${type}" type="text" name="type[]" class="form-control m-input" placeholder="Add a type of registration..." autocomplete="off">
+		                        		<div class="input-group-append">                
+		                                	<button id="removeRow" type="button" class="btn btn-danger">Remove</button>
+		                           		 </div>
+		                           	</div>
+		                          </div>
+			                </div>
+			                
+			                
+			                    <div id="inputFormRow">
+			                        <div class="input-group mb-3">
+			                        	
+			                            <input type="text" name="type[]" class="form-control m-input" placeholder="Add a type of registration..." autocomplete="off">
+			                            <div class="input-group-append">                
+			                                <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
+			                            </div>
+			                        </div>
+			                    </div>
+			
+			                    <div id="newRow"></div>
+			                    <button id="addRow" type="button" class="btn btn-info">Add a new type</button>
+			                </div>
+			            </div>
+							
+						</div>
+					</div>
+							
+						</div>
+						<div class="text-center">
+							<!-- Submit button -->
+							<button type="submit" class="btn btn-primary btn-block mb-4">Create</button>
+						</div>
+						<div th:if="${successMessage}">
+							<div class="alert alert-success hide" role="alert">
+								Conference registered. See all <a href="/conference" class="alert-link">conferences</a>.
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- --------------------------------------------------------------------------------------------------------------- -->
+	<!-- --------------------------------------------------------------------------------------------------------------- -->
+	<!-- --------------------------------------------------------------------------------------------------------------- -->
+	<!-- --------------------------------------------------------------------------------------------------------------- -->
+	<!-- --------------------------------------------------------------------------------------------------------------- -->
+
+	
+	 <script type="text/javascript">
+        // add row
+        $("#addRow").click(function () {
+            var html = '';
+            html += '<div id="inputFormRow">';
+            html += '<div class="input-group mb-3">';
+            html += '<input type="text" name="type[]" class="form-control m-input" placeholder="Add a type of registration..." autocomplete="off">';
+            html += '<div class="input-group-append">';
+            html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
+            html += '</div>';
+            html += '</div>';
+
+            $('#newRow').append(html);
+        });
+
+        // remove row
+        $(document).on('click', '#removeRow', function () {
+            $(this).closest('#inputFormRow').remove();
+        });
+    </script>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+</html>
