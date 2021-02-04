@@ -1,5 +1,11 @@
 # Projet - Application de gestion d’inscriptions à une conférence
 
+## Prérequis
+* **mysql**: compte: 'root', mot de passse: 'root'
+* Une base de données intitulée 'conf_dbase'
+
+**Remarque** : vous avez la possiblité de changer/préciser le mot de passe du compte root du serveur mysql et/ou le nom de la base de données dans le fichier _application.properties_
+
 ## Création de la base de données
 
 ```
