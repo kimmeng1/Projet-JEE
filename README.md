@@ -6,7 +6,7 @@
 
 **Remarque** : 
 * Vous avez la possiblité de changer/préciser le mot de passe du compte root du serveur mysql et/ou le nom de la base de données dans le fichier _application.properties_
-* Vous aurez peut-être également besoin d'installer Lombok(https://projectlombok.org/download)
+* Vous aurez peut-être également besoin d'installer Lombok (https://projectlombok.org/download)
 
 ## Création de la base de données
 
