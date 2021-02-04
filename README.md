@@ -12,13 +12,12 @@
 mysql> CREATE DATABASE conf_dbase;
 ```
 
-## Lancemement de l'application 
+## Déploiement de l'application
+
+### Depuis la racine du projet
 ```
 $ mvn spring-boot:run
 ```
-
-## Déploiement de l'application
-
 
 ### A partir d'un .jar
 ```
